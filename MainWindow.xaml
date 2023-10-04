@@ -1,0 +1,114 @@
+﻿<Window x:Class="PaulLibrary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PaulLibrary"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" ></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl 
+            Grid.ColumnSpan="5">
+            <TabItem Header="Пользователи">
+                <StackPanel>
+                    <ListView Name="UserListView" SelectionChanged="UserListView_OnSelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn 
+                                    DisplayMemberBinding="{Binding Path=UserId}"
+                                    Header="UserId"></GridViewColumn>
+                                <GridViewColumn 
+                                    DisplayMemberBinding="{Binding Path=UserName}"
+                                    Header="UserName"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <WrapPanel>
+                        <Label Content="Id user:"></Label>
+                        <TextBlock Name="TextUserId" 
+                                   VerticalAlignment="Center"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="Name user:"></Label>
+                        <TextBlock Name="TextUserName" 
+                                   VerticalAlignment="Center"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <ListView Name="UsersBookView" SelectionChanged="UsersBookView_OnSelectionChanged"></ListView>
+                    </WrapPanel>
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Книги">
+                <StackPanel>
+                    <ListView Name="BookListView" SelectionChanged="BookListView_OnSelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn 
+                                    DisplayMemberBinding="{Binding Path=BookId}"
+                                    Header="BookId"></GridViewColumn>
+                                <GridViewColumn 
+                                    DisplayMemberBinding="{Binding Path=Title}"
+                                    Header="Title"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <WrapPanel>
+                        <Label Content="Id Book:"></Label>
+                        <TextBlock Name="TextBookId" 
+                                   VerticalAlignment="Center"></TextBlock>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="Title:"></Label>
+                        <TextBlock Name="TextTitle" 
+                                   VerticalAlignment="Center"></TextBlock>
+                    </WrapPanel>
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Выдача книг" Height="20" VerticalAlignment="Top">
+                <StackPanel>
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" >
+                        <TextBlock Name="SelectedUser"></TextBlock>
+                        <ComboBox Name="UserComboBox" 
+                                  SelectedValuePath="UserName"
+                                  SelectionChanged="UserComboBox_OnSelectionChanged">
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" Grid.ColumnSpan="4" >
+                        <TextBlock Name="SelectedBook"></TextBlock>
+                        <ComboBox Name="BookComboBox" 
+                                  SelectedValuePath="Title"
+                                  SelectionChanged="BookComboBox_OnSelectionChanged">
+                            
+
+                        </ComboBox>
+                    </StackPanel>
+                    <Button Content="Выдать" Margin="20px 10px" Click="GiveBook" />
+                    <StackPanel>
+                        <ListView Name="UserBookList">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Title}"/>
+                            </GridView>
+                        </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </StackPanel>
+                
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
