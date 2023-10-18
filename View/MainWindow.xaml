@@ -23,12 +23,9 @@
             Grid.ColumnSpan="5">
             <TabItem Header="Пользователи">
                 <StackPanel>
-                    <ListView Name="UserListView" SelectionChanged="UserListView_OnSelectionChanged">
+                    <ListView Name="UserListView" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn 
-                                    DisplayMemberBinding="{Binding Path=UserId}"
-                                    Header="UserId"></GridViewColumn>
                                 <GridViewColumn 
                                     DisplayMemberBinding="{Binding Path=UserName}"
                                     Header="UserName"></GridViewColumn>
@@ -36,40 +33,27 @@
                         </ListView.View>
                     </ListView>
                     <WrapPanel>
-                        <Label Content="Id user:"></Label>
-                        <TextBlock Name="TextUserId" 
-                                   VerticalAlignment="Center"></TextBlock>
-                    </WrapPanel>
-                    <WrapPanel>
                         <Label Content="Name user:"></Label>
                         <TextBlock Name="TextUserName" 
                                    VerticalAlignment="Center"></TextBlock>
                     </WrapPanel>
                     <WrapPanel>
-                        <ListView Name="UsersBookView" SelectionChanged="UsersBookView_OnSelectionChanged"></ListView>
+                        <ListView Name="UsersBookView" ></ListView>
                     </WrapPanel>
 
                 </StackPanel>
             </TabItem>
             <TabItem Header="Книги">
                 <StackPanel>
-                    <ListView Name="BookListView" SelectionChanged="BookListView_OnSelectionChanged">
+                    <ListView Name="BookListView" ItemsSource="{Binding Books}" SelectedItem="{Binding SelectedBook}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn 
-                                    DisplayMemberBinding="{Binding Path=BookId}"
-                                    Header="BookId"></GridViewColumn>
                                 <GridViewColumn 
                                     DisplayMemberBinding="{Binding Path=Title}"
                                     Header="Title"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <WrapPanel>
-                        <Label Content="Id Book:"></Label>
-                        <TextBlock Name="TextBookId" 
-                                   VerticalAlignment="Center"></TextBlock>
-                    </WrapPanel>
                     <WrapPanel>
                         <Label Content="Title:"></Label>
                         <TextBlock Name="TextTitle" 
@@ -83,22 +67,20 @@
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="2" >
                         <TextBlock Name="SelectedUser"></TextBlock>
                         <ComboBox Name="UserComboBox" 
-                                  SelectedValuePath="UserName"
-                                  SelectionChanged="UserComboBox_OnSelectionChanged">
+                                  ItemsSource="{Binding Users}" 
+                                  SelectedItem="{Binding SelectedUser}">
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Grid.Column="3" Grid.ColumnSpan="4" >
                         <TextBlock Name="SelectedBook"></TextBlock>
                         <ComboBox Name="BookComboBox" 
-                                  SelectedValuePath="Title"
-                                  SelectionChanged="BookComboBox_OnSelectionChanged">
-                            
-
+                                  ItemsSource="{Binding Books}" 
+                                  SelectedItem="{Binding SelectedBook}">
                         </ComboBox>
                     </StackPanel>
-                    <Button Content="Выдать" Margin="20px 10px" Click="GiveBook" />
+                    <Button Content="Выдать" Margin="20px 10px"  Command="{Binding AddBook}" />
                     <StackPanel>
-                        <ListView Name="UserBookList">
+                        <ListView ItemsSource="{Binding SelectedUser.UserBook}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Title}"/>
